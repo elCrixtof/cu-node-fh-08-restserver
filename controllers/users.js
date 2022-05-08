@@ -65,6 +65,7 @@ const usersDelete = async(req, res) => {
     const user = await User.findByIdAndUpdate(id, {state: false});
     res.json({user, AuthUser})
     } catch (error) {
+        console.log(error);
         res.status(401).json({
             msg: error.message
         })
