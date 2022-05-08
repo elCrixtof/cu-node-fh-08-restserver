@@ -56,11 +56,19 @@ const usersPost = async (req, res) => {
 };
 
 const usersDelete = async(req, res) => {
-    const {id} = req.params;
+    try {
+        const {id} = req.params;
+    // const uid = req.uid;
     // Delete completely
     // const user = await User.findByIdAndDelete(id);
+    const AuthUser = req.user
     const user = await User.findByIdAndUpdate(id, {state: false});
-    res.json(user)
+    res.json({user, AuthUser})
+    } catch (error) {
+        res.status(401).json({
+            msg: error.message
+        })
+    }
 };
 
 module.exports = {
